@@ -18,13 +18,13 @@ The main goals of this project are:
  To generate a final 360◦ stereo view from the images gathered after mosaicing the strips obtained from left and right side of each individual image and thereafter removing disparity from them by applying an automatic disparity control algorithm.
 
 # PROJECT MILESTONES AND EXPECTED TIMELINES
-- 1st milestone
--- Creating the dataset is a bit difficult and will take substantial time. Also the accuracy with which the dataset needs to be taken matters a lot so we will try to allocate the first couple of days for generating the dataset.
-- 2nd milestone
--- We will implement the disparity control algorithm.
-- 3rd milestone
--- We will merge all the images obtained after applying disparity control algorithm to form a panorama.
-- 4th milestone
+- 1st milestone (25/10/20)
+-- Creating the dataset is a bit difficult and will take substantial time. Also the accuracy with which the dataset needs to be taken matters a lot so we will try to allocate the first couple of days for generating the dataset. <br>
+- 2nd milestone (31/10/20) <br>
+-- We will implement the disparity control algorithm. <br>
+- 3rd milestone (10/11/20) <br>
+-- We will merge all the images obtained after applying disparity control algorithm to form a panorama. <br>
+- 4th milestone (20/11/20) <br>
 -- We will complete the coding part and present the final output we obtained after running the code on the input.
 
 # DATASET REQUIREMENT
