@@ -6,7 +6,7 @@ rad = 4  % in centimetres, as in the paper. radius for baseline
 
 beta = asin(rad/len)
 
-f = 18 % in millimetres Camera's focal length
+f = 18 % in millimetres Cameras focal length
 dist = tan(beta)*f % distance from the centre in mm
 
 conversion_factor = "conversion between inches and mm"  %if necessary
