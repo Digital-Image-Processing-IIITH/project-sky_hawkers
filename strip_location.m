@@ -1,4 +1,4 @@
-%% Recalculation of left and right eye strip positions for improved depth perception
+%% Recalculation of left and right eye strip positions for improved depth perception taking left image as the reference
 strip_width=1;
 %% Enter Num_Im as number of images, dir_name as directory name
 Im_width=strip_width*(Num_Im);
