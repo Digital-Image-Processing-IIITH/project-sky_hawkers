@@ -96,7 +96,7 @@ imwrite(uint8(Img_r_eye_inf),'right_eye_inf.jpg');
 %imshow(Im_left_eye-uint8(Im_right_eye))
 
 %imshow(Im_left_eye-uint8(Im_right_eye))
-%% DISPARITY COMPUTATION
+%% code block for computing disparity
 
 mx1 = -1;
 mx2 = -1;
@@ -105,7 +105,7 @@ mx2 = -1;
 win=50;
 %r=[100:140:420];
 r = [100,240,380];
-cm=floor(c1/win); %for each column
+cm=floor(c1/win);
 pos=0;
 
 %calculating left max and right max
@@ -152,13 +152,83 @@ end
 [m,n]=size(std);
 final_max=zeros(n,1);
 
-% selecting the maximum value
 for id=1:n
     value = std(:,id);
-    temp_val=max(value);
+    temp_val=max(value); %we select and store the maximum value
     final_max(id)=temp_val;
 end
 
-%% Smoothening the signal using a Median Filter
+%% code for applying median filter
 clear filt_out
 filt_out=medfilt1(final_max,400);
+
+%% code block for automatic disparity control
+filt_out_sz = length(filt_out);
+max_var = -1;
+min_var = 100000000;
+for i=1:filt_out_sz
+    if filt_out(i)>max_var
+        max_var = filt_out(i);
+    end
+    
+    if filt_out(i)<min_var
+        min_var = filt_out(i);
+    end
+end
+
+thresh=max_var+min_var;
+thresh=thresh/1.5;
+[row,col,ht]=size(Img_1);
+strip_gap=zeros(col,1);
+
+len = length(filt_out);
+for id=1:len
+    if(filt_out(id)<=thresh)
+        num = 140*(thresh-filt_out(id));
+        den = (thresh-min_var);
+        
+        strip_gap(id)=80+round(num/den);
+
+    elseif(filt_out(id) > thresh)
+        num = 30*(thresh-filt_out(id));
+        den = (max_var-thresh);
+
+        strip_gap(id)=80+round(num/den);
+    end
+end
+
+strip_gap(length(filt_out)+1:col)=strip_gap(length(filt_out));
+
+%% code block to get left and right eye strip positions
+Img_width=strip_width*(length(lst)-2);
+[r2,c2,ht]=size(imread(strcat(directory,lst(10).name)));
+Img_centre=round(c2/2);
+
+rs_position=round(Img_centre+strip_gap./2);
+
+ls_position=zeros(1,length(strip_gap));
+ls_position(1:shift_x)=round(Img_centre-strip_gap(end-shift_x+1:end)./2);
+ls_position(shift_x+1:end)=round(Img_centre-strip_gap(1:end-shift_x)./2);
+
+
+%% Images after automataic disparity control
+l_eye_adc=zeros(size(Img_l_eye_inf));
+r_eye_adc=zeros(size(Img_r_eye_inf));
+tic
+for id = 3:length(lst)
+    filename = strcat(directory,lst(id).name);
+    Im_temp = imread(filename); 
+    start=(id-3)*strip_width + 1;
+    last=(id-2)*strip_width;
+    temp_value = Im_temp(:,rs_position(idx)+1:rs_position(idx)+strip_width,:);
+    l_eye_adc(:,start:last,:)=double(temp_value); % form the compound Image for left eye
+    temp_value = Im_temp(:,ls_position(idx)+1:ls_position(idx)+strip_width,:);
+    r_eye_adc(:,start:last,:)=double(temp_value); % form the compound Image for right eye
+end
+toc
+%% Saving the images
+figure,imshow(uint8(l_eye_adc))
+imwrite(uint8(l_eye_adc),strcat('output_images/','left_eye_with_adc.jpg'));
+
+figure, imshow(uint8(r_eye_adc))
+imwrite(uint8(r_eye_adc),strcat('output_images/','right_eye_with_adc.jpg'));
