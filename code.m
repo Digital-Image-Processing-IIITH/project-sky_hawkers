@@ -232,3 +232,28 @@ imwrite(uint8(l_eye_adc),strcat('output_images/','left_eye_with_adc.jpg'));
 
 figure, imshow(uint8(r_eye_adc))
 imwrite(uint8(r_eye_adc),strcat('output_images/','right_eye_with_adc.jpg'));
+
+%% convert both image to grayscale after reading them replace name with final name
+img1=imread('left_eye_with_adc.jpg');
+img2=imread('right_eye_with_adc.jpg');
+
+img1=rgb2gray(img1);
+img2=rgb2gray(img2);
+
+[ht,wd]=size(img1);
+disparity =zeros(size(img2));
+ssd=zeros(size(img1))
+threshold=30
+for i=40:ht-1
+    for j=threshold:wd-1
+        temp=100000000000
+        for k=1:threshold-1
+            temp2=sum(((img1(i-1:i+1,j-1,j+1)-img2(i-1:i+1,j-k:j-k+2)).^2),'all');
+            if (temp>temp2)
+                ssd[i][j]=k
+                temp=temp2
+            end
+        end
+        disparity[i][j]=temp
+    end
+end
