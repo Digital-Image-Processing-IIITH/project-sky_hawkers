@@ -234,8 +234,8 @@ figure, imshow(uint8(r_eye_adc))
 imwrite(uint8(r_eye_adc),strcat('output_images/','right_eye_with_adc.jpg'));
 
 %% convert both image to grayscale after reading them replace name with final name
-img1=imread(strcat('panorama/', 'left_eye_with_adc.jpg'));
-img2=imread(strcat('panorama/', 'right_eye_with_adc.jpg'));
+img1=imread(strcat('output_images/', 'left_eye_with_adc.jpg'));
+img2=imread(strcat('output_images/', 'right_eye_with_adc.jpg'));
 
 img1=rgb2gray(img1);
 img2=rgb2gray(img2);
@@ -259,4 +259,4 @@ for i=40:ht-1
 end
 
 figure, imshow(uint8(disparity))
-imwrite(uint8(disparity),strcat('panorama/','disparity.jpg'));
+imwrite(uint8(disparity),strcat('output_images/','disparity.jpg'));
