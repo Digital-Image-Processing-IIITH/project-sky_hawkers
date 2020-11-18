@@ -38,7 +38,7 @@ for id = 3:dir_len
 end
 toc
 
-%% Storing the output_imagess created by joining left strips and right strips individually
+%% Storing the output_images created by joining left strips and right strips individually
 figure,imshow(uint8(Img_l_eye))
 imwrite(uint8(Img_l_eye),strcat('output_images/','left_eye_Im.jpg'));
 
@@ -260,3 +260,21 @@ end
 
 figure, imshow(uint8(disparity))
 imwrite(uint8(disparity),strcat('output_images/','disparity.jpg'));
+
+%% convert disparity image to depth image
+
+img2=imread(strcat('output_images/', 'disparity.jpg'));
+
+[ht,wd]=size(disparity);
+depth = zeros(size(disparity));
+
+for i=1:ht
+    for j=1:wd
+        num = 18*40   %% (focal_length = 18mm)*(distance between optical center = 4cm) 
+        temp_val = num/disparity(i,j);
+        depth(i,j) = round(temp_val);
+    end
+end
+
+figure, imshow(uint8(disparity))
+imwrite(uint8(disparity),strcat('output_images/','depth.jpg'));
