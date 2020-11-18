@@ -233,6 +233,13 @@ imwrite(uint8(l_eye_adc),strcat('output_images/','left_eye_with_adc.jpg'));
 figure, imshow(uint8(r_eye_adc))
 imwrite(uint8(r_eye_adc),strcat('output_images/','right_eye_with_adc.jpg'));
 
+%% Making anaglyph
+
+A = stereoAnaglyph(l_eye_adc,Ir_eye_adc2);
+figure
+imshow(A);
+imwrite(uint8(A),strcat('output_images/','anaglyph.jpg'));
+
 %% convert both image to grayscale after reading them replace name with final name
 img1=imread(strcat('output_images/', 'left_eye_with_adc.jpg'));
 img2=imread(strcat('output_images/', 'right_eye_with_adc.jpg'));
