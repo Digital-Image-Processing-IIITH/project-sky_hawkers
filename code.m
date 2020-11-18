@@ -263,18 +263,19 @@ imwrite(uint8(disparity),strcat('output_images/','disparity.jpg'));
 
 %% convert disparity image to depth image
 
-img2=imread(strcat('output_images/', 'disparity.jpg'));
+img_disp=imread(strcat('panorama/', 'disparity.jpg'));
 
-[ht,wd]=size(disparity);
-depth = zeros(size(disparity));
+
+[ht,wd]=size(img_disp);
+depth = zeros(size(img_disp));
 
 for i=1:ht
     for j=1:wd
         num = 18*40   %% (focal_length = 18mm)*(distance between optical center = 4cm) 
-        temp_val = num/disparity(i,j);
-        depth(i,j) = round(temp_val);
+        temp_val = num/img_disp(i,j);
+        depth(i,j) = temp_val;
     end
 end
 
-figure, imshow(uint8(disparity))
-imwrite(uint8(disparity),strcat('output_images/','depth.jpg'));
+figure, imshow(uint8(depth))
+imwrite(uint8(depth),strcat('panorama/','depth.jpg'));
