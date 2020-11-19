@@ -21,6 +21,8 @@ https://drive.google.com/file/d/1ZKscDlR1XLFVLclyPjea4DyAQfcGbsuf/view?usp=drive
 For a smaller dataset of 440 images of 960 x 640 resolution:
 https://drive.google.com/file/d/1jPe4jkZSq4YttuaZ2UInS0iPoSm3mO2n/view?usp=sharing
 
+# Sample Output
+The output images corresponding to the 440 images dataset can be found out_images/ folder
+
 # Cases where code does not work
 If the input dataset is of less than 50 images , the stereo images will not be properly made because we take window size as 50
-
