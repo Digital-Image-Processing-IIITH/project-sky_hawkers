@@ -59,8 +59,8 @@ Im_2gr=double(rgb2gray(Img_2));
 
 % Image region with 0 disparity. Entering value of pos1,pos2 manually
 
-pos1=294; 
-pos2=301;
+pos1=1577; 
+pos2=1614;
 diff=pos2-pos1;
 Im_1_cut=Im_1gr(:,pos1:pos2);
 
@@ -235,7 +235,7 @@ imwrite(uint8(r_eye_adc),strcat('output_images/','right_eye_with_adc.jpg'));
 
 %% Making anaglyph
 
-A = stereoAnaglyph(l_eye_adc,Ir_eye_adc2);
+A = stereoAnaglyph(l_eye_adc,r_eye_adc);
 figure
 imshow(A);
 imwrite(uint8(A),strcat('output_images/','anaglyph.jpg'));
@@ -270,7 +270,7 @@ imwrite(uint8(disparity),strcat('output_images/','disparity.jpg'));
 
 %% convert disparity image to depth image
 
-img_disp=imread(strcat('panorama/', 'disparity.jpg'));
+img_disp=imread(strcat('output_images/', 'disparity.jpg'));
 
 
 [ht,wd]=size(img_disp);
@@ -278,11 +278,11 @@ depth = zeros(size(img_disp));
 
 for i=1:ht
     for j=1:wd
-        num = 18*65   %% (focal_length = 18mm)*(distance between optical center = 6.5cm) 
+        num = 18*65;   %% (focal_length = 18mm)*(distance between optical center = 6.5cm) 
         temp_val = num/img_disp(i,j);
         depth(i,j) = temp_val;
     end
 end
 
 figure, imshow(uint8(depth))
-imwrite(uint8(depth),strcat('panorama/','depth.jpg'));
+imwrite(uint8(depth),strcat('output_images/','depth.jpg'));
