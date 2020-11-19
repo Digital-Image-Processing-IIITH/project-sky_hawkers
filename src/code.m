@@ -1,6 +1,6 @@
 % This code takes images as input and extract strips and concatenates them to form output_imagess
 
-directory = 'Final_DIP_Dataset/';
+directory = '../input/';%input images should be present in this folder. images should be names as 0000, 0001, 0002, etc. That is, in an dictionary-based alphabetical order.   
 lst = dir(directory);
 
 strip_width=4;
@@ -40,15 +40,15 @@ toc
 
 %% Storing the output_images created by joining left strips and right strips individually
 figure,imshow(uint8(Img_l_eye))
-imwrite(uint8(Img_l_eye),strcat('output_images/','left_eye_Im.jpg'));
+imwrite(uint8(Img_l_eye),strcat('../output_images/','left_eye_Im.jpg'));
 
 figure, imshow(uint8(Img_r_eye))
-imwrite(uint8(Img_r_eye),strcat('output_images/','right_eye_Im.jpg'));
+imwrite(uint8(Img_r_eye),strcat('../output_images/','right_eye_Im.jpg'));
 
 %% algining of data with 0 disparity at infinity
 
-img1 = strcat('output_images/','left_eye_Im.jpg');
-img2 = strcat('output_images/','right_eye_Im.jpg');
+img1 = strcat('../output_images/','left_eye_Im.jpg');
+img2 = strcat('../output_images/','right_eye_Im.jpg');
 
 Img_1=imread(img1);
 Img_2=imread(img2);
@@ -228,21 +228,21 @@ end
 toc
 %% Saving the images
 figure,imshow(uint8(l_eye_adc))
-imwrite(uint8(l_eye_adc),strcat('output_images/','left_eye_with_adc.jpg'));
+imwrite(uint8(l_eye_adc),strcat('../output_images/','left_eye_with_adc.jpg'));
 
 figure, imshow(uint8(r_eye_adc))
-imwrite(uint8(r_eye_adc),strcat('output_images/','right_eye_with_adc.jpg'));
+imwrite(uint8(r_eye_adc),strcat('../output_images/','right_eye_with_adc.jpg'));
 
 %% Making anaglyph
 
 A = stereoAnaglyph(l_eye_adc,r_eye_adc);
 figure
 imshow(A);
-imwrite(uint8(A),strcat('output_images/','anaglyph.jpg'));
+imwrite(uint8(A),strcat('../output_images/','anaglyph.jpg'));
 
 %% convert both image to grayscale after reading them replace name with final name
-img1=imread(strcat('output_images/', 'left_eye_with_adc.jpg'));
-img2=imread(strcat('output_images/', 'right_eye_with_adc.jpg'));
+img1=imread(strcat('../output_images/', 'left_eye_with_adc.jpg'));
+img2=imread(strcat('../output_images/', 'right_eye_with_adc.jpg'));
 
 img1=rgb2gray(img1);
 img2=rgb2gray(img2);
@@ -266,11 +266,11 @@ for i=40:ht-1
 end
 
 figure, imshow(uint8(disparity))
-imwrite(uint8(disparity),strcat('output_images/','disparity.jpg'));
+imwrite(uint8(disparity),strcat('../output_images/','disparity.jpg'));
 
 %% convert disparity image to depth image
 
-img_disp=imread(strcat('output_images/', 'disparity.jpg'));
+img_disp=imread(strcat('../output_images/', 'disparity.jpg'));
 
 
 [ht,wd]=size(img_disp);
@@ -285,4 +285,4 @@ for i=1:ht
 end
 
 figure, imshow(uint8(depth))
-imwrite(uint8(depth),strcat('output_images/','depth.jpg'));
+imwrite(uint8(depth),strcat('../output_images/','depth.jpg'));
