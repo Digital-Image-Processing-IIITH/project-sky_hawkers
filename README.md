@@ -12,7 +12,7 @@ The goal of this project is to output stereo panorama given a dataset of images.
 # Setting up the code:
  - Upload this project to matlab.mathworks.com or install matlab in your system and make sure you have computer vision library.
  - Add your dataset to input_images folder.
- -Run code.m from src folder
+ - Run code.m from src folder
 
 # Sample Input
 This is a dataset consisting of 2000 images of 1920 x 1280 resolution:
