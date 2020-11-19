@@ -1,6 +1,6 @@
 % This code takes images as input and extract strips and concatenates them to form output_imagess
 
-directory = '../input/';%input images should be present in this folder. images should be names as 0000, 0001, 0002, etc. That is, in an dictionary-based alphabetical order.   
+directory = '../input_images/';%input images should be present in this folder. images should be names as 0000, 0001, 0002, etc. That is, in an dictionary-based alphabetical order.   
 lst = dir(directory);
 
 strip_width=4;
@@ -89,13 +89,10 @@ Im_2_align(:,shift_x+1:end,:) = double(Img_2(:,1:end-shift_x,:)); % Aligned righ
 
 [num_row,num_col,ht]=size(Img_2);
 Img_r_eye_inf=Im_2_align(:,shift_x+1:end,:);
-%imshow(uint8(Im_right_eye))
 Img_l_eye_inf=Img_1(:,1:end-shift_x,:);
 imwrite(uint8(Img_l_eye_inf),'left_eye_inf.jpg'); 
 imwrite(uint8(Img_r_eye_inf),'right_eye_inf.jpg');
-%imshow(Im_left_eye-uint8(Im_right_eye))
 
-%imshow(Im_left_eye-uint8(Im_right_eye))
 %% code block for computing disparity
 
 mx1 = -1;
@@ -103,9 +100,7 @@ mx2 = -1;
 
 [r1,c1,ht]=size(Img_l_eye_inf);
 win=50;
-%r=[100:140:420];
 r = [100,240,380];
-cm=floor(c1/win);
 pos=0;
 
 %calculating left max and right max
