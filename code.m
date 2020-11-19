@@ -278,7 +278,7 @@ depth = zeros(size(img_disp));
 
 for i=1:ht
     for j=1:wd
-        num = 18*40   %% (focal_length = 18mm)*(distance between optical center = 4cm) 
+        num = 18*65   %% (focal_length = 18mm)*(distance between optical center = 6.5cm) 
         temp_val = num/img_disp(i,j);
         depth(i,j) = temp_val;
     end
